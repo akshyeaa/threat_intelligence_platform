@@ -4,6 +4,7 @@ from fastapi import FastAPI
 
 from app.config.settings import settings
 from app.database.init_db import init_db
+from app.api.analysis import router as analysis_router
 
 
 @asynccontextmanager
@@ -25,6 +26,7 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+app.include_router(analysis_router)
 
 @app.get("/")
 def home():
