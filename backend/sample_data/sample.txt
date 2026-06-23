@@ -1,0 +1,7 @@
+A phishing campaign targets finance users.
+
+Domain: secure-login-update.com
+
+IP: 185.199.108.153
+
+CVE-2023-3519
