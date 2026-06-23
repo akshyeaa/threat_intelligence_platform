@@ -14,3 +14,5 @@ MALWARE_DATASET = STATIC_DIR / "malware" / "malware.json"
 ACTOR_DATASET = STATIC_DIR / "actors" / "actors.json"
 
 REPUTATION_DATASET = STATIC_DIR / "reputation" / "reputation.json"
+
+UPLOAD_DIR = BASE_DIR / "uploads"
