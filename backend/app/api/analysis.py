@@ -1,15 +1,3 @@
-# from pathlib import Path
-# import shutil
-# from fastapi import APIRouter
-
-# from app.schemas.analysis import AnalysisRequest
-# from app.schemas.analysis_response import AnalysisResponse
-
-# from app.services.analysis.service import AnalysisService
-
-# from fastapi import UploadFile, File, HTTPException
-# from app.constants.paths import UPLOAD_DIR
-# from app.constants.file_types import SUPPORTED_FILE_TYPES
 from pathlib import Path
 import shutil
 
@@ -23,6 +11,12 @@ from app.schemas.analysis_response import AnalysisResponse
 
 from app.services.analysis.service import AnalysisService
 
+from app.schemas.report import ReportRequest
+from app.schemas.sigma import SigmaRequest
+
+from app.services.ai.service import AIService
+from app.services.sigma.service import SigmaService
+
 
 router = APIRouter(
     prefix="/api/analyze-threat",
@@ -30,6 +24,8 @@ router = APIRouter(
 )
 
 analysis_service = AnalysisService()
+ai_service = AIService()
+sigma_service = SigmaService()
 
 
 @router.post(
@@ -91,3 +87,45 @@ async def analyze_file(
         ioc_count=len(result.iocs),
         iocs=result.iocs,
     )
+
+@router.post("/generate-report")
+def generate_report(
+    request: ReportRequest,
+):
+
+    analysis = (
+        analysis_service.analyze_text(
+            request.content
+        )
+    )
+
+    report = (
+        ai_service.generate_report(
+            analysis
+        )
+    )
+
+    return {
+        "success": True,
+        "report": report,
+    }
+
+@router.post("/generate-sigma")
+def generate_sigma(
+    request: SigmaRequest,
+):
+
+    analysis = (
+        analysis_service.analyze_text(
+            request.content
+        )
+    )
+
+    rules = sigma_service.generate(
+        analysis
+    )
+
+    return {
+        "success": True,
+        "rules": rules,
+    }
