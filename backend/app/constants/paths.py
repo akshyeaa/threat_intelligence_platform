@@ -18,3 +18,11 @@ REPUTATION_DATASET = STATIC_DIR / "reputation" / "reputation.json"
 UPLOAD_DIR = BASE_DIR / "uploads"
 
 IP_REPUTATION_DATASET = BASE_DIR / "app" / "static" / "reputation" / "ip_reputation.json"
+
+MITRE_DATASET = (
+    BASE_DIR
+    / "app"
+    / "static"
+    / "mitre"
+    / "mitre_mapping.json"
+)

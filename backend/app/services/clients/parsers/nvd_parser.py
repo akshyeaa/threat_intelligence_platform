@@ -26,7 +26,10 @@ class NVDParser:
 
             metric = metrics["cvssMetricV31"][0]
 
-            severity = metric["cvssData"]["baseSeverity"]
+            severity = (
+                metric["cvssData"]["baseSeverity"]
+                .title()
+            )
 
             cvss = metric["cvssData"]["baseScore"]
 

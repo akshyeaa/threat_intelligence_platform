@@ -2,6 +2,8 @@ from typing import Any
 
 from pydantic import BaseModel, Field
 
+from app.schemas.risk import RiskScore
+
 
 class IOCItem(BaseModel):
     id: str = Field(..., description="Unique IOC ID")
@@ -18,7 +20,7 @@ class IOCItem(BaseModel):
         description="Mapped MITRE ATT&CK information"
     )
 
-    risk_score: int | None = Field(
+    risk_score: RiskScore | None = Field(
         default=None,
         description="Calculated risk score"
     )

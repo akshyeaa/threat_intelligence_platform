@@ -1,7 +1,0 @@
-[
-    {
-        "technique": "T1566",
-        "name": "Phishing",
-        "tactic": "Initial Access"
-    }
-]

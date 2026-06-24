@@ -7,6 +7,8 @@ from app.schemas.ioc import IOCExtractionResponse
 from app.services.ioc.service import IOCService
 from app.services.parser.service import ParserService
 from app.services.enrichment.service import EnrichmentService
+from app.services.mitre.service import MitreService
+from app.services.risk.service import RiskService
 
 
 class AnalysisService:
@@ -18,6 +20,8 @@ class AnalysisService:
         self.parser = ParserService()
         self.ioc_service = IOCService()
         self.enrichment_service = EnrichmentService()
+        self.mitre_service = MitreService()
+        self.risk_service = RiskService()
 
     def analyze_text(self, text: str) -> IOCExtractionResponse:
         """
@@ -26,6 +30,13 @@ class AnalysisService:
         result = self.ioc_service.extract_iocs(text)
 
         result = self.enrichment_service.enrich(result)
+
+        result = self.mitre_service.map_attack(
+            result,
+            text,
+        )
+
+        result = self.risk_service.score(result)
 
         return result
 
@@ -40,5 +51,12 @@ class AnalysisService:
         )
 
         result = self.enrichment_service.enrich(result)
+
+        result = self.mitre_service.map_attack(
+            result,
+            document.content,
+        )
+
+        result = self.risk_service.score(result)
 
         return result
