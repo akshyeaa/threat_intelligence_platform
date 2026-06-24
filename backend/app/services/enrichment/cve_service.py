@@ -15,16 +15,22 @@ class CVEService:
 
         self.nvd_client = NVDClient()
 
-    def find(self, cve: str):
+    def enrich(self, cve: str):
 
         cve = cve.upper()
-
+        
         for item in self.dataset:
 
             if item["cve"] == cve:
                 return item
 
-        return self.find_from_nvd(cve)
+        nvd_result = self.find_from_nvd(cve)
+
+        if nvd_result:
+            
+            return nvd_result
+
+        return None
 
     def find_from_nvd(self, cve: str):
 

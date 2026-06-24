@@ -1,7 +1,7 @@
 import requests
 
 from app.config.settings import settings
-
+from app.services.clients.parsers.nvd_parser import NVDParser
 
 class NVDClient:
     """
@@ -26,4 +26,4 @@ class NVDClient:
 
         response.raise_for_status()
 
-        return response.json()
+        return NVDParser.parse(response.json())

@@ -1,0 +1,29 @@
+[
+    {
+        "ip": "185.199.108.153",
+        "reputation": "Malicious",
+        "confidence": 95,
+        "country": "Unknown",
+        "usage_type": "Hosting Provider",
+        "reports": 247,
+        "source": "Local Dataset"
+    },
+    {
+        "ip": "45.9.148.108",
+        "reputation": "Malicious",
+        "confidence": 90,
+        "country": "Russia",
+        "usage_type": "Data Center",
+        "reports": 184,
+        "source": "Local Dataset"
+    },
+    {
+        "ip": "8.8.8.8",
+        "reputation": "Safe",
+        "confidence": 100,
+        "country": "United States",
+        "usage_type": "Public DNS",
+        "reports": 0,
+        "source": "Local Dataset"
+    }
+]

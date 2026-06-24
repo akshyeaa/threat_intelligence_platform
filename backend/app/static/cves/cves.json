@@ -1,13 +1,5 @@
 [
-    {
-        "cve": "CVE-2023-3519",
-        "severity": "Critical",
-        "cvss": 9.8,
-        "exploit": true,
-        "description": "Citrix ADC remote code execution vulnerability.",
-        "source": "NVD",
-        "mitigation": "Upgrade to the latest patched version."
-    },
+    
     {
         "cve": "CVE-2021-44228",
         "severity": "Critical",

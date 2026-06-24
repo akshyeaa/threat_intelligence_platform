@@ -1,0 +1,16 @@
+SEVERITY_SCORES = {
+    "Critical": 40,
+    "High": 30,
+    "Medium": 20,
+    "Low": 10,
+}
+
+EXPLOIT_SCORE = 25
+
+HIGH_CVSS_SCORE = 20
+
+MEDIUM_CVSS_SCORE = 10
+
+MALICIOUS_REPUTATION_SCORE = 15
+
+MAX_RISK_SCORE = 100

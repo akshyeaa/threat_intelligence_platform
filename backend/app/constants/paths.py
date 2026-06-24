@@ -16,3 +16,5 @@ ACTOR_DATASET = STATIC_DIR / "actors" / "actors.json"
 REPUTATION_DATASET = STATIC_DIR / "reputation" / "reputation.json"
 
 UPLOAD_DIR = BASE_DIR / "uploads"
+
+IP_REPUTATION_DATASET = BASE_DIR / "app" / "static" / "reputation" / "ip_reputation.json"
