@@ -25,3 +25,5 @@ python-magic-bin
 networkx
 
 orjson
+
+groq
