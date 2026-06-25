@@ -34,7 +34,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
-        "https://threat-intelligence-platform-ydcq.onrender.com",
+        "https://threat-intelligence-platform-seven.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
