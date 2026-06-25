@@ -1,3 +1,5 @@
 {
-    "report": "CVE-2023-3519 attacked IP 185.199.108.153"
+  "description": "A phishing campaign exploits CVE-2023-3519 using a malicious IP.",
+  "cve": "CVE-2023-3519",
+  "ip": "185.199.108.153"
 }

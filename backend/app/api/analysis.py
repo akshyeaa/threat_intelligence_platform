@@ -16,7 +16,10 @@ from app.schemas.sigma import SigmaRequest
 
 from app.services.ai.service import AIService
 from app.services.sigma.service import SigmaService
-
+from app.services.history.service import (
+    HistoryService,
+)
+from app.services.ai.service import AIService
 
 router = APIRouter(
     prefix="/api/analyze-threat",
@@ -24,9 +27,33 @@ router = APIRouter(
 )
 
 analysis_service = AnalysisService()
+history_service = HistoryService()
 ai_service = AIService()
 sigma_service = SigmaService()
 
+
+def get_highest_risk(result):
+
+    priority = {
+        "Critical": 4,
+        "High": 3,
+        "Medium": 2,
+        "Low": 1,
+    }
+
+    highest = "Low"
+
+    for ioc in result.iocs:
+
+        if not ioc.risk_score:
+            continue
+
+        level = ioc.risk_score.level
+
+        if priority[level] > priority[highest]:
+            highest = level
+
+    return highest
 
 @router.post(
     "/text",
@@ -38,6 +65,17 @@ def analyze_text(
 
     result = analysis_service.analyze_text(
         request.content
+    )
+    report = ai_service.generate_report(
+        result
+    )
+    history_service.save_analysis(
+        input_type="text",
+        filename=None,
+        ioc_count=len(result.iocs),
+        highest_risk=get_highest_risk(result),
+        analysis_json=result.model_dump_json(),
+        report=report,
     )
 
     return AnalysisResponse(
@@ -79,7 +117,19 @@ async def analyze_file(
     result = analysis_service.analyze_file(
         destination
     )
+    report = ai_service.generate_report(
+        result
+    )
 
+    history_service.save_analysis(
+        input_type="file",
+        filename=file.filename,
+        ioc_count=len(result.iocs),
+        highest_risk=get_highest_risk(result),
+        analysis_json=result.model_dump_json(),
+        report=report
+    )
+    
     return AnalysisResponse(
         success=True,
         input_type="file",
