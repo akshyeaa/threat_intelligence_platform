@@ -1,5 +1,5 @@
 const API_BASE =
-  "http://127.0.0.1:8000/api/analyze-threat";
+  "https://threat-intelligence-platform-ydcq.onrender.com/api/analyze-threat";
 
 export async function analyzeText(content) {
   const response = await fetch(
@@ -83,20 +83,9 @@ export async function analyzeFile(
 }
 
 
-// export async function getHistory() {
-
-//   const response =
-//     await fetch(
-//       "http://127.0.0.1:8000/api/history"
-//     );
-
-//   return response.json();
-
-// }
-
 export async function getAnalysis(id) {
   const response = await fetch(
-    `http://127.0.0.1:8000/api/history/${id}`
+    `https://threat-intelligence-platform-ydcq.onrender.com/api/history/${id}`
   );
 
   return response.json();
@@ -104,7 +93,7 @@ export async function getAnalysis(id) {
 
 export async function getHistory() {
   const response = await fetch(
-    "http://127.0.0.1:8000/api/history"
+    "https://threat-intelligence-platform-ydcq.onrender.com/api/history"
   );
 
   return response.json();

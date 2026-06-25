@@ -245,4 +245,4 @@ Returns a specific analysis.
 
 ## Authors
 
-Developed as an AI-powered Cybersecurity Threat Intelligence Platform using FastAPI, Next.js and SQLite.
+U Akshay
