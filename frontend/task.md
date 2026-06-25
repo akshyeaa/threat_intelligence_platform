@@ -1,7 +1,0 @@
-- `[x]` Set up global styles and layout (`globals.css`, `layout.js`)
-- `[x]` Redesign Navbar (`Navbar.js`)
-- `[x]` Fix and redesign Charts (`BarChart.js`, `PieChart.js`)
-- `[x]` Redesign Dashboard Components (`DashboardCard.js`, `HistoryCard.js`)
-- `[x]` Redesign Analysis Components (`ThreatInput.js`, `FileUpload.js`, `StatsBar.js`, `AnalysisResult.js`, `IOCCard.js`, `MitreCard.js`)
-- `[x]` Redesign Report Components (`AIReport.js`, `SigmaViewer.js`)
-- `[x]` Update Pages (`page.js`, `analyze/page.js`, `history/page.js`)
