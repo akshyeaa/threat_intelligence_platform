@@ -1,57 +1,32 @@
 import RiskBadge from "./RiskBadge";
 import MitreCard from "./MitreCard";
 
-export default function IOCCard({
-  ioc,
-}) {
+export default function IOCCard({ ioc }) {
   return (
-    <div className="
-      border
-      border-gray-800
-      rounded-2xl
-      p-5
-      bg-[#111111]
-      hover:border-gray-600
-      transition-all
-      duration-300
-    ">
-      <div className="
-        flex
-        justify-between
-        items-start
-        mb-4
-      ">
-        <div>
-          <h3 className="
-            text-xl
-            font-bold
-            break-all
-          ">
-            {ioc.value}
-          </h3>
-
-          <p className="
-            text-gray-400
-            text-sm
-            mt-1
-            uppercase
-          ">
-            {ioc.type}
-          </p>
+    <div className="glass-panel rounded-2xl p-6 glow-hover flex flex-col justify-between">
+      <div>
+        <div className="flex justify-between items-start mb-4">
+          <div className="flex-1 pr-4">
+            <h3 className="text-lg font-fira text-gray-100 tracking-tight break-all mb-1 font-medium">
+              {ioc.value}
+            </h3>
+            <p className="text-xs text-gray-500 uppercase tracking-widest font-semibold">
+              {ioc.type}
+            </p>
+          </div>
+          {ioc.risk_score && (
+            <div className="flex-shrink-0">
+              <RiskBadge level={ioc.risk_score.level} />
+            </div>
+          )}
         </div>
-
-        {ioc.risk_score && (
-          <RiskBadge
-            level={
-              ioc.risk_score.level
-            }
-          />
-        )}
       </div>
-
-      <MitreCard
-        mitre={ioc.mitre}
-      />
+      
+      {ioc.mitre && (
+        <div className="mt-auto">
+          <MitreCard mitre={ioc.mitre} />
+        </div>
+      )}
     </div>
   );
 }

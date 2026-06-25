@@ -1,63 +1,49 @@
 import Link from "next/link";
 
 export default function HistoryCard({ item }) {
+  const getRiskColor = (risk) => {
+    if (risk === "Critical" || risk === "High") return "bg-red-900/40 text-red-300 border-red-800";
+    if (risk === "Medium") return "bg-amber-900/40 text-amber-300 border-amber-800";
+    if (risk === "Low") return "bg-emerald-900/40 text-emerald-300 border-emerald-800";
+    return "bg-transparent text-gray-400 border-gray-700";
+  };
+
   return (
-    <div className="border border-neutral-800 rounded-xl p-5 bg-neutral-950">
-
-      <div className="flex justify-between">
-
-        <h2 className="text-xl font-semibold">
-          Analysis #{item.id}
-        </h2>
-
-        <span
-          className={`px-3 py-1 rounded-full text-sm
-          ${
-            item.highest_risk === "High"
-              ? "bg-red-600"
-              : item.highest_risk === "Medium"
-              ? "bg-yellow-600"
-              : "bg-green-700"
-          }`}
-        >
-          {item.highest_risk}
+    <div className="glass-panel rounded-xl p-6 glow-hover group relative overflow-hidden">
+      <div className="flex justify-between items-start mb-4">
+        <div>
+          <h2 className="text-xl font-bold tracking-tight mb-1 text-white flex items-center gap-2">
+            <span className="text-gray-500 font-fira text-sm">#{item.id.toString().padStart(4, '0')}</span>
+            Analysis Record
+          </h2>
+          <p className="text-sm text-gray-400">
+            {new Date(item.created_at).toLocaleString(undefined, {
+              year: 'numeric', month: 'short', day: 'numeric',
+              hour: '2-digit', minute: '2-digit'
+            })}
+          </p>
+        </div>
+        <span className={`px-3 py-1 rounded border text-xs font-medium tracking-wide uppercase ${getRiskColor(item.highest_risk)}`}>
+          {item.highest_risk || "Unknown"} Risk
         </span>
-
       </div>
 
-      <p className="mt-3 text-neutral-400">
-        {item.input_type.toUpperCase()}
-      </p>
+      <div className="flex items-center gap-6 mb-6">
+        <div>
+          <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">Source</p>
+          <p className="font-medium text-gray-200">{item.input_type.toUpperCase()}</p>
+        </div>
+        <div>
+          <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">Extracted IOCs</p>
+          <p className="font-fira text-gray-200">{item.ioc_count}</p>
+        </div>
+      </div>
 
-      <p>{item.ioc_count} IOC(s)</p>
-
-      <p className="text-sm text-neutral-500 mt-2">
-        {new Date(item.created_at).toLocaleString()}
-      </p>
-
-      <Link
-href={`/history/${item.id}`}
-className="block"
->
-
-<div
-className="
-mt-5
-rounded-lg
-bg-neutral-900
-hover:bg-neutral-800
-transition
-p-3
-text-center
-"
->
-
-View Full Analysis →
-
-</div>
-
-</Link>
-
+      <Link href={`/history/${item.id}`} className="block">
+        <div className="w-full rounded bg-white/5 hover:bg-white/10 border border-[var(--glass-border)] transition-all duration-300 p-3 text-center text-sm font-medium text-gray-200 group-hover:shadow-[0_0_10px_rgba(255,255,255,0.05)]">
+          View Full Analysis &rarr;
+        </div>
+      </Link>
     </div>
   );
 }

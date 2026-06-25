@@ -1,37 +1,31 @@
-import { Inter } from "next/font/google";
-// import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Fira_Code } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
-
 const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-inter",
+});
+
+const firaCode = Fira_Code({
+  subsets: ["latin"],
+  variable: "--font-fira",
 });
 
 export const metadata = {
   title: "AI Threat Intelligence Platform",
-  description:
-    "Automated Threat Intelligence & Analysis",
+  description: "Advanced Automated Threat Analysis & Intelligence",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      className={`h-full antialiased`}
-    >
-      <body className={`${inter.className} min-h-full flex flex-col`}>
-        <Navbar/>{children}
-        </body>
+    <html lang="en" className="dark h-full antialiased">
+      <body className={`${inter.variable} ${firaCode.variable} font-sans min-h-full flex flex-col`}>
+        <Navbar />
+        <div className="flex-1 w-full">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }

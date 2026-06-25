@@ -1,160 +1,77 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-
+import { useParams, useRouter } from "next/navigation";
 import { getAnalysis } from "@/services/api";
-
 import AnalysisResult from "@/components/AnalysisResult";
 import AIReport from "@/components/AIReport";
-import SigmaViewer from "@/components/SigmaViewer";
 
 export default function AnalysisPage() {
-
   const { id } = useParams();
-
-  const [analysis, setAnalysis] =
-    useState(null);
+  const router = useRouter();
+  const [analysis, setAnalysis] = useState(null);
 
   useEffect(() => {
-
     load();
-
   }, []);
 
   async function load() {
-
-    const data =
-      await getAnalysis(id);
-
-    data.analysis_json =
-      JSON.parse(
-        data.analysis_json
-      );
-
-    setAnalysis(data);
-
+    try {
+      const data = await getAnalysis(id);
+      data.analysis_json = JSON.parse(data.analysis_json);
+      setAnalysis(data);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   if (!analysis) {
-
     return (
-
-      <main className="p-8">
-
-        Loading...
-
+      <main className="max-w-7xl mx-auto p-8 lg:p-12 flex justify-center items-center h-[50vh]">
+        <div className="w-8 h-8 border-4 border-gray-600 border-t-white rounded-full animate-spin"></div>
       </main>
-
     );
-
   }
 
   return (
-
-    <main className="max-w-7xl mx-auto p-8">
-
-      <h1
-        className="
-        text-5xl
-        font-bold
-        mb-8
-        "
-      >
-
-        Analysis #{id}
-
-      </h1>
-
-      <div className="mb-8">
-
-        <p>
-
-          Input Type:
-          {" "}
-          <b>{analysis.input_type}</b>
-
-        </p>
-
-        <p>
-
-          Filename:
-          {" "}
-          <b>
-
-            {analysis.filename || "N/A"}
-
-          </b>
-
-        </p>
-
-        <p>
-
-          IOC Count:
-          {" "}
-          <b>
-
-            {analysis.ioc_count}
-
-          </b>
-
-        </p>
-
-        <p>
-
-          Highest Risk:
-          {" "}
-          <b>
-
-            {analysis.highest_risk}
-
-          </b>
-
-        </p>
-
+    <main className="max-w-7xl mx-auto p-8 lg:p-12 fade-in pb-24">
+      <div className="mb-12 border-b border-[var(--glass-border)] pb-8 flex items-center justify-between">
+        <div>
+          <button 
+            onClick={() => router.push('/history')}
+            className="text-sm text-gray-500 hover:text-white mb-4 flex items-center gap-2 transition-colors"
+          >
+            &larr; Back to History
+          </button>
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-2 flex items-center gap-4">
+            Analysis Record
+            <span className="text-gray-600 font-fira text-2xl">#{id.toString().padStart(4, '0')}</span>
+          </h1>
+        </div>
       </div>
 
-      <AnalysisResult
-        result={analysis.analysis_json}
-      />
-
-      <div className="mt-10">
-
-        <AIReport
-          report={analysis.report}
-        />
-
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="glass-panel rounded-2xl p-6">
+          <p className="text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2">Input Source</p>
+          <p className="text-xl font-bold text-gray-200">{analysis.input_type.toUpperCase()}</p>
+        </div>
+        <div className="glass-panel rounded-2xl p-6">
+          <p className="text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2">Filename</p>
+          <p className="text-xl font-bold text-gray-200 truncate">{analysis.filename || "N/A"}</p>
+        </div>
+        <div className="glass-panel rounded-2xl p-6">
+          <p className="text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2">Total Indicators</p>
+          <p className="text-xl font-bold text-white font-fira">{analysis.ioc_count}</p>
+        </div>
+        <div className="glass-panel rounded-2xl p-6">
+          <p className="text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2">Severity Risk</p>
+          <p className="text-xl font-bold text-white">{analysis.highest_risk}</p>
+        </div>
       </div>
 
-      <div className="mt-10">
+      <AnalysisResult result={analysis.analysis_json} />
 
-        {analysis.analysis_json?.iocs?.length > 0 && (
-
-<div
-className="mt-10 p-6 rounded-xl border border-neutral-800"
->
-
-<h2 className="text-2xl font-bold mb-4">
-
-Sigma Rules
-
-</h2>
-
-<p className="text-neutral-400">
-
-Regenerate Sigma Rules
-from the Analyze page.
-
-</p>
-
-</div>
-
-)}
-
-      </div>
-
+      <AIReport report={analysis.report} />
     </main>
-
   );
-
 }

@@ -1,6 +1,4 @@
-export default function StatsBar({
-  result,
-}) {
+export default function StatsBar({ result }) {
   if (!result) return null;
 
   const highRisk =
@@ -16,41 +14,33 @@ export default function StatsBar({
     ).length;
 
   return (
-    <div className="grid grid-cols-3 gap-4 mt-8">
-      <div className="
-            bg-[#111111]
-            border
-            border-gray-800
-            rounded-2xl
-            p-5
-            hover:border-gray-600
-            transition-all
-            ">
-        <h3 className="text-sm text-gray-400">
-          IOC Count
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+      <div className="glass-panel rounded-2xl p-6 glow-hover flex flex-col justify-between relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+        <h3 className="text-sm text-gray-400 font-medium tracking-wider uppercase mb-2">
+          Total Indicators
         </h3>
-
-        <p className="text-4xl font-bold mt-2">
+        <p className="text-5xl font-bold text-white font-fira tracking-tight">
           {result.ioc_count}
         </p>
       </div>
 
-      <div className="border rounded-xl p-4">
-        <h3 className="text-sm text-gray-400">
-          High Risk
+      <div className="glass-panel rounded-2xl p-6 glow-hover flex flex-col justify-between relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+        <h3 className="text-sm text-gray-400 font-medium tracking-wider uppercase mb-2">
+          High Risk Threats
         </h3>
-
-        <p className="text-3xl font-bold">
+        <p className="text-5xl font-bold text-white font-fira tracking-tight">
           {highRisk}
         </p>
       </div>
 
-      <div className="border rounded-xl p-4">
-        <h3 className="text-sm text-gray-400">
-          MITRE Mappings
+      <div className="glass-panel rounded-2xl p-6 glow-hover flex flex-col justify-between relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+        <h3 className="text-sm text-gray-400 font-medium tracking-wider uppercase mb-2">
+          MITRE Tactics
         </h3>
-
-        <p className="text-3xl font-bold">
+        <p className="text-5xl font-bold text-white font-fira tracking-tight">
           {mitreCount}
         </p>
       </div>
