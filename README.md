@@ -1,5 +1,12 @@
 # AI Threat Intelligence Platform
 
+
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green)
+![Next.js](https://img.shields.io/badge/Next.js-Frontend-black)
+![SQLite](https://img.shields.io/badge/SQLite-Database-blue)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+
 ## Overview
 
 The AI Threat Intelligence Platform is a full-stack cybersecurity application that automates threat analysis from raw text and uploaded files. The platform extracts Indicators of Compromise (IOCs), enriches them with threat intelligence, maps them to the MITRE ATT&CK framework, calculates risk scores, generates Sigma detection rules, and produces AI-powered threat reports.
@@ -103,6 +110,45 @@ Stores every analysis inside SQLite database including:
 * SQLite
 
 ---
+
+## System Architecture
+
+```text
+                        User
+                          │
+                          ▼
+                Next.js Frontend (React)
+                          │
+                    REST API Requests
+                          │
+                          ▼
+                 FastAPI Backend (Python)
+                          │
+         ┌────────────────┼────────────────┐
+         │                │                │
+         ▼                ▼                ▼
+ IOC Extraction    Threat Enrichment   File Parsing
+         │                │                │
+         └────────────────┼────────────────┘
+                          │
+                          ▼
+              MITRE ATT&CK Mapping
+                          │
+                          ▼
+                 Risk Score Calculation
+                          │
+                          ▼
+               AI Report Generation
+                          │
+                          ▼
+              Sigma Rule Generation
+                          │
+                          ▼
+                 SQLite Database
+                          │
+                          ▼
+                Analysis History
+```
 
 ## Project Structure
 
@@ -230,6 +276,20 @@ Returns a specific analysis.
 10. Results are displayed on the frontend dashboard.
 
 ---
+
+## Live Demo
+
+### Frontend
+
+https://threat-intelligence-platform-seven.vercel.app/
+
+### Backend API
+
+https://threat-intelligence-platform-ydcq.onrender.com/
+
+### Swagger Documentation
+
+https://threat-intelligence-platform-ydcq.onrender.com/docs
 
 ## Future Enhancements
 
